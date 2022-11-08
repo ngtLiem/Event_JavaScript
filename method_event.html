@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .page {
+            margin: 10px auto;
+            width: 850px;
+            background-color: black;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <h3>Event, event handler/event listener &amp; register an event handler in JavaScript</h3>
+        <p>NOTE: Should using the <b style="color: red;">event argument (implicitly acessing window.event)</b> for passing to an <b>event handler function</b>.</p>
+        <hr/>
+
+        <h3>Register via using inline event handler</h3>
+        <button id="btn1" onclick="sayThank1a()">Button 1a: with event handler function without argument</button>
+        <button class="btn1b" onclick="sayThank1b(event);">Button 1b: with Event Object (+)</button>
+        <button class="btn1c" onclick="sayThank1c(this);">Button 1c: with DOMElement (-)</button>
+        <hr/>
+
+        <h3>Register via using event handler properties</h3>
+        <button id="btn2" onclick="sayThank2a()">Button 2a: with event handler function without argument</button>
+        <button class="btn2b" onclick="sayThank2b(event);">Button 2b: with Event Object (+)</button>
+        <button class="btn2c" onclick="sayThank2c(this);">Button 2c: with DOMElement (-)</button>
+        <hr/>
+
+        <h3>Register via using addEventListener method</h3>
+        <button id="btn3" onclick="sayThank3a()">Button 3a: with event handler function without argument</button>
+        <button class="btn3b" onclick="sayThank3b(event);">Button 3b: with Event Object (+)</button>
+        <button class="btn3c" onclick="sayThank3c(this);">Button 3c: with DOMElement (-)</button>
+    </div>
+</body>
+<script>
+    //-------------- Register via using inline event handler --------------
+    function sayThank1a() {
+        alert('1. Thanks, w3schools.com');
+    }
+
+    function sayThank1b(evt) {
+        alert('1b. Thanks, w3schools.com evt.target.tagName = ' + evt.target.tagName + ', evt.srcElement.tagName = ' + evt.srcElement.tagName);
+    }
+
+    function sayThank1c(elmt) {
+        alert('1c. Thanks, w3schools.com elmt.tagName = ' + elmt.tagName);
+    }
+
+
+    //-------------- Register via using event handler properties --------------
+    function sayThank2a() {
+        alert('2. Thanks, developer.mozilla.org.');
+    }
+
+    function sayThank2b(evt) {
+        alert('2b. Thanks, developer.mozilla.org. evt.target.tagName = ' + evt.target.tagName);
+    }
+
+    function sayThank2c(elmt) {
+        alert('2c. Thanks, developer.mozilla.org. elmt.tagName = ' + elmt.tagName);
+    }
+
+    const button2 = document.getElementById("btn2");
+    const button2b = document.getElementById("btn2b");
+    const button2c = document.getElementById("btn2c");
+    button2.onclick = sayThank2a;
+    /* 
+        Hoặc: button2.onclick = function(){sayThank2()};
+        button2.onclick = function(){alert('2. Thanks, developer.mozilla.org.');};
+    */
+
+    button2b.onclick = function(evt) { //Anonymous function
+        alert('2b. Thanks, developer.mozilla.org. evt.target.tagName =' + evt.target.tagName);
+    };
+    /*
+        button2b.onclick = evt =>{ //Anonymous arrow function 
+            alert('2b. Thanks, developer.mozilla.org. evt.target.tagName =' + evt.target.tagName);
+        }
+        button2b.onclick = sayThank2b;
+    */
+
+    button2c.onclick = function() {
+        sayThank2c(this)
+    };
+
+    //-------------- Register via using addEventListener method --------------
+    const button3 = document.getElementById("btn3");
+    const button3b = document.getElementById("btn3b");
+    const button3c = document.getElementById("btn3c");
+
+    function sayThank3a() {
+        alert('3a. Thanks, www.ecma-international.org.');
+    }
+
+    function sayThank3b(evt) {
+        alert('3b. Thanks, www.ecma-international.org. evt.target.tagName = ' + evt.target.tagName);
+    }
+
+    function sayThank3c(elmt) {
+        alert('3c. Thanks, www.ecma-international.org. elmt.tagName = ' + elmt.tagName);
+    }
+
+    button3.addEventListener('click', function() {
+        // sayThank3();
+        alert('3a- Direct. Thanks, www.ecma-international.org.');
+    });
+    /*
+        button3b.addEventListener('click', sayThank3b);
+        hoặc: button3b.addEventListener('click', function() {
+            sayThank3b(event);
+
+        });
+    */
+
+    button3b.addEventListener('click', function() {
+        sayThank3b(window.event);
+    });
+
+    button3c.addEventListener('click', function() {
+        sayThank3c(this);
+    });
+</script>
+
+</html>
